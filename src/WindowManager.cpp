@@ -34,18 +34,23 @@ int WindowManager::create_window_() {
     }
 
     glfwMakeContextCurrent(this->window_);
+    glewInit();
+
     glClearColor(0,128/255.0f,128/255.0f, 1.0f);
+    script_manager_ = new ScriptManager();
+    script_manager_->start();
     // Update loop until window is closed.
     while (!glfwWindowShouldClose(window_)) {
         update_();
     }
-
+    delete script_manager_;
     return 0;
 }
 
 void WindowManager::update_(){
     glfwPollEvents();
     glClear(GL_COLOR_BUFFER_BIT);
+    script_manager_->update();
     glfwSwapBuffers(window_);
 }
 
@@ -64,13 +69,11 @@ int WindowManager::initialize_glfw_(){
         return 1;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-    glewInit();
 
     initialized_ = 1;
 
