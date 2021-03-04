@@ -2,10 +2,11 @@
 #define _ScriptManager_H
 
 #include "Mesh.h"
+#include "Object.h"
 
 class ScriptManager{
 private:
-    Mesh *m;
+    Object terrain;
 public:
     void start();
     void update();
