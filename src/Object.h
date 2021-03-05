@@ -12,7 +12,7 @@ public:
     void update();
 
     void add_component(component *comp);
-
+    template <class component_type> component_type* get_component();
 private:
     std::vector<component*> components;
 };

@@ -1,5 +1,7 @@
 #include "object.h"
 #include "./components/mesh.h"
+#include "./components/transform.h"
+#include <iostream>
 
 void object::update(){
     for (short i = 0; i < components.size(); i++) {
@@ -8,7 +10,8 @@ void object::update(){
 }
 
 object::object(){
-
+    component *t = new transform();
+    add_component(t);
 }
 
 object::~object(){
@@ -18,5 +21,18 @@ object::~object(){
 }
 
 void object::add_component(component *comp) {
+    comp->parent = this;
     components.push_back(comp);
 }
+
+template <class component_type> component_type* object::get_component() {
+    for (short i = 0; i < components.size(); i++) {
+        component_type *comp = dynamic_cast<component_type*>(components[i]);
+        if (comp) {
+            return comp;
+        }
+    }
+    return 0;
+}
+
+template transform* object::get_component();

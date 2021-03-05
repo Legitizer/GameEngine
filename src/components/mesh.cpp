@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include "transform.h"
 #include "../object.h"
 #include "../../include/glm/glm.hpp"
 #include "../../include/glm/ext.hpp"
@@ -47,6 +48,8 @@ void mesh::draw(){
         return;
     }
     shaderToUse->use();
+    glm::mat4 model = ((parent->get_component<transform>())->model);
+    shaderToUse->set_mat4_uniform("model", model);
     glBindVertexArray(vao_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
     glDrawElements(GL_TRIANGLES, sizeof_elements_, GL_UNSIGNED_INT, NULL);
