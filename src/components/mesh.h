@@ -1,8 +1,8 @@
 #ifndef _Mesh_H
 #define _Mesh_H
 
-#include "../include/glm/vec3.hpp"
-#include "../include/GL/glew.h"
+#include "../../include/glm/vec3.hpp"
+#include "../../include/GL/glew.h"
 #include "../shaders/shader.h"
 #include <iostream>
 

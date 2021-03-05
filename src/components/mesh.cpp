@@ -1,8 +1,8 @@
 #include "mesh.h"
 #include "../object.h"
-#include "../include/glm/glm.hpp"
-#include "../include/glm/ext.hpp"
-#include "../include/glm/gtx/string_cast.hpp"
+#include "../../include/glm/glm.hpp"
+#include "../../include/glm/ext.hpp"
+#include "../../include/glm/gtx/string_cast.hpp"
 
 mesh::mesh(float *vertices, int sizeof_vertices_,  unsigned int *elements, int sizeof_elements_){
     this->vertices_ = vertices;

@@ -1,8 +1,8 @@
 #ifndef _window_manager_H
 #define _window_manager_H
 
-#include "../include/GL/glew.h"
-#include "../include/GLFW/glfw3.h"
+#include "../../include/GL/glew.h"
+#include "../../include/GLFW/glfw3.h"
 #include "../script_manager.h"
 #include <thread>
 

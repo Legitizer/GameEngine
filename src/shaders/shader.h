@@ -1,8 +1,8 @@
 #ifndef _shader_H
 #define _shader_H
 
-#include "../include/glm/mat4x4.hpp"
-#include "../include/glm/gtc/type_ptr.hpp"
+#include "../../include/glm/mat4x4.hpp"
+#include "../../include/glm/gtc/type_ptr.hpp"
 
 class shader {
 public:

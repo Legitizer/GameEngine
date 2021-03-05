@@ -1,8 +1,8 @@
 #ifndef _scriptmanager_H
 #define _scriptmanager_H
 
-#include "Mesh.h"
-#include "Object.h"
+#include "./components/mesh.h"
+#include "object.h"
 
 class script_manager{
 private:

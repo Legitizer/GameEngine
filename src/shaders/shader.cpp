@@ -1,7 +1,7 @@
 #include "shader.h"
 
 #include "../system/systemfile_manager.h"
-#include "../include/GL/glew.h"
+#include "../../include/GL/glew.h"
 #include <iostream>
 
 shader::shader(const char* vertex_shader_filename, const char* fragment_shader_filename){
