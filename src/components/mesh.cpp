@@ -42,6 +42,10 @@ void mesh::set_shader(shader *shaderToUse) {
 }
 
 void mesh::draw(){
+    if (shaderToUse == NULL) {
+        std::cout << "No shader was given to the mesh" << std::endl;
+        return;
+    }
     shaderToUse->use();
     glBindVertexArray(vao_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
@@ -49,6 +53,10 @@ void mesh::draw(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     
+}
+
+void mesh::on_update(){
+    draw();
 }
 
 mesh::~mesh(){

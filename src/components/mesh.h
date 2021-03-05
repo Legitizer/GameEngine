@@ -3,12 +3,13 @@
 
 #include "../../include/glm/vec3.hpp"
 #include "../../include/GL/glew.h"
+#include "component.h"
 #include "../shaders/shader.h"
 #include <iostream>
 
 class object;
 
-class mesh {
+class mesh : public component{
 private:
     GLuint vao_, positions_vbo_, ebo_;
 
@@ -26,6 +27,8 @@ public:
 
     void set_shader(shader *shaderToUse);
     void draw();
+
+    void on_update();
 };
 
 #endif
