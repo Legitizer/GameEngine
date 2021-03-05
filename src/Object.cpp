@@ -1,16 +1,14 @@
-#include "Object.h"
-#include "Mesh.h"
+#include "object.h"
+#include "./components/mesh.h"
 
-void Object::update(){
-    if (mesh != NULL) {
-        mesh->draw();
-    }
+void object::update(){
+    
 }
 
-Object::Object(){}
+object::object(){
 
-Object::~Object(){
-    if (mesh != NULL) {
-        delete mesh;
-    }
+}
+
+object::~object(){
+    
 }

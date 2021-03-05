@@ -1,30 +1,22 @@
-#include "Mesh.h"
-#include "Object.h"
+#include "mesh.h"
+#include "../object.h"
 #include "../include/glm/glm.hpp"
 #include "../include/glm/ext.hpp"
 #include "../include/glm/gtx/string_cast.hpp"
 
-Mesh::Mesh(float *vertices, int sizeof_vertices_,  unsigned int *elements, int sizeof_elements_){
+mesh::mesh(float *vertices, int sizeof_vertices_,  unsigned int *elements, int sizeof_elements_){
     this->vertices_ = vertices;
     this->elements_ = elements;
 
     this->sizeof_vertices_ = sizeof_vertices_;
     this->sizeof_elements_ = sizeof_elements_;
 
-    pos = glm::vec3(0.f, 0.f, -1.f);
-    rot = glm::vec3(0.f, 0.f, 0.f);
-
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, pos);
-
-    pers = glm::perspective(glm::radians(80.f), 800/600.f, 0.01f, 1000.f);
-
     if (vertices_ != NULL && elements_ != NULL) {
         initialize_vertex_arrays_();
     }
 }
 
-void Mesh::initialize_vertex_arrays_(){
+void mesh::initialize_vertex_arrays_(){
     // Generates ONE vertex array object whos ID is stored in vao_.
     glGenVertexArrays(1, &vao_);
     glBindVertexArray(vao_);
@@ -45,15 +37,12 @@ void Mesh::initialize_vertex_arrays_(){
     glBindVertexArray(0);
 }
 
-void Mesh::set_shader(Shader *shader) {
-    this->shader = shader;
+void mesh::set_shader(shader *shaderToUse) {
+    this->shaderToUse = shaderToUse;
 }
 
-void Mesh::draw(){
-    shader->use();
-    shader->set_mat4_uniform("model", model);
-    shader->set_mat4_uniform("perspective", pers);
-
+void mesh::draw(){
+    shaderToUse->use();
     glBindVertexArray(vao_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
     glDrawElements(GL_TRIANGLES, sizeof_elements_, GL_UNSIGNED_INT, NULL);
@@ -62,13 +51,8 @@ void Mesh::draw(){
     
 }
 
-void Mesh::set_parent(Object *p){
-    parent = p;
-    parent->mesh = this;
-}
-
-Mesh::~Mesh(){
-    delete shader;
+mesh::~mesh(){
+    delete shaderToUse;
     delete vertices_;
     delete elements_;
 }

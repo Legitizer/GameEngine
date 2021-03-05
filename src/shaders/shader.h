@@ -1,12 +1,12 @@
-#ifndef _Shader_H
-#define _Shader_H
+#ifndef _shader_H
+#define _shader_H
 
 #include "../include/glm/mat4x4.hpp"
 #include "../include/glm/gtc/type_ptr.hpp"
 
-class Shader {
+class shader {
 public:
-    Shader(const char* vertex_shader_filename, const char* fragment_shader_filename);
+    shader(const char* vertex_shader_filename, const char* fragment_shader_filename);
     void use();
 
     void set_mat4_uniform(const char* name_of_uniform, glm::mat4 m);

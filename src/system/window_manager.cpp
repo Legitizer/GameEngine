@@ -1,7 +1,7 @@
-#include "WindowManager.h"
+#include "window_manager.h"
 #include <iostream>
 
-WindowManager::WindowManager(int width, int height, const char* title){
+window_manager::window_manager(int width, int height, const char* title){
     this->width_ = width;
     this->height_ = height;
     this->title_ = title;
@@ -9,7 +9,7 @@ WindowManager::WindowManager(int width, int height, const char* title){
     window_thread_ = new std::thread(&create_window_, this);
 }
 
-WindowManager::~WindowManager(){
+window_manager::~window_manager(){
     if (window_ != NULL) {
         glfwDestroyWindow(window_);
     }
@@ -18,7 +18,7 @@ WindowManager::~WindowManager(){
     }
 }
 
-int WindowManager::create_window_() {
+int window_manager::create_window_() {
     int glfw_initialize_code = initialize_glfw_();
 
     if (glfw_initialize_code != 0) {
@@ -37,7 +37,7 @@ int WindowManager::create_window_() {
     glewInit();
 
     glClearColor(0,128/255.0f,128/255.0f, 1.0f);
-    script_manager_ = new ScriptManager();
+    script_manager_ = new script_manager();
     script_manager_->start();
     // Update loop until window is closed.
     while (!glfwWindowShouldClose(window_)) {
@@ -47,18 +47,18 @@ int WindowManager::create_window_() {
     return 0;
 }
 
-void WindowManager::update_(){
+void window_manager::update_(){
     glfwPollEvents();
     glClear(GL_COLOR_BUFFER_BIT);
     script_manager_->update();
     glfwSwapBuffers(window_);
 }
 
-void WindowManager::wait_until_closed(){
+void window_manager::wait_until_closed(){
     window_thread_->join();
 }
 
-int WindowManager::initialize_glfw_(){
+int window_manager::initialize_glfw_(){
     if (initialized_) {
         return 0;
     }

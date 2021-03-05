@@ -3,12 +3,12 @@
 
 #include "../include/glm/vec3.hpp"
 #include "../include/GL/glew.h"
-#include "Shader.h"
+#include "../shaders/shader.h"
 #include <iostream>
 
-class Object;
+class object;
 
-class Mesh {
+class mesh {
 private:
     GLuint vao_, positions_vbo_, ebo_;
 
@@ -17,20 +17,14 @@ private:
     unsigned int *elements_;
     int sizeof_elements_;
 
-    glm::vec3 pos, rot;
-    glm::mat4 model, pers;
-
-    Shader *shader;
-
-    Object *parent;
+    shader *shaderToUse;
 public:
-    Mesh(float *vertices, int sizeof_vertices_,  unsigned int *elements, int sizeof_elements_);
-    ~Mesh();
+    mesh(float *vertices, int sizeof_vertices_,  unsigned int *elements, int sizeof_elements_);
+    ~mesh();
 
     void initialize_vertex_arrays_();
 
-    void set_shader(Shader *shader);
-    void set_parent(Object *p);
+    void set_shader(shader *shaderToUse);
     void draw();
 };
 

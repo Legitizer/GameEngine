@@ -1,18 +1,17 @@
-#ifndef _Object_H
-#define _Object_H
+#ifndef _object_H
+#define _object_H
 
 #include "../include/glm/vec3.hpp"
 #include <vector>
 
-class Mesh;
-class Object {
+class object {
 public:
-    Object();
-    ~Object();
+    object();
+    ~object();
     void update();
 
-    glm::vec3 position, rotation, scale;
-    Mesh *mesh;
+private:
+
 };
 
 #endif

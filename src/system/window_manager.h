@@ -1,18 +1,18 @@
-#ifndef _WindowManager_H
-#define _WindowManager_H
+#ifndef _window_manager_H
+#define _window_manager_H
 
 #include "../include/GL/glew.h"
 #include "../include/GLFW/glfw3.h"
-#include "ScriptManager.h"
+#include "../script_manager.h"
 #include <thread>
 
-class WindowManager {
+class window_manager {
 private:
     // Variables
     int initialized_;
     GLFWwindow *window_;
     std::thread *window_thread_;
-    ScriptManager *script_manager_;
+    script_manager *script_manager_;
 
     // Window properties
     int width_, height_;
@@ -25,8 +25,8 @@ private:
 
 
 public:
-    WindowManager(int width, int height, const char* title);
-    ~WindowManager();
+    window_manager(int width, int height, const char* title);
+    ~window_manager();
     void wait_until_closed();
 };
 

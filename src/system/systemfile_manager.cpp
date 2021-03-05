@@ -1,6 +1,6 @@
-#include "SystemFileManager.h"
+#include "systemfile_manager.h"
 
-char* SystemFileManager::read_file(const char* file_path){
+char* systemfile_manager::read_file(const char* file_path){
     std::string file_text;
     std::ifstream f(file_path);
 
