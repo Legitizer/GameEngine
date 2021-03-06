@@ -16,6 +16,6 @@ char* systemfile_manager::read_file(const char* file_path){
     char* writable = new char[file_text.size() + 1];
     std::copy(file_text.begin(), file_text.end(), writable);
     writable[file_text.size()] = '\0';
-    
+
     return writable;
 }

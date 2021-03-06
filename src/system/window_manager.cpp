@@ -37,20 +37,21 @@ int window_manager::create_window_() {
     glewInit();
 
     glClearColor(0,128/255.0f,128/255.0f, 1.0f);
-    script_manager_ = new script_manager();
-    script_manager_->start();
+    scene_manager = new class scene_manager();
+    scene_manager->start();
     // Update loop until window is closed.
     while (!glfwWindowShouldClose(window_)) {
         update_();
     }
-    delete script_manager_;
+    glfwTerminate();
+    delete scene_manager;
     return 0;
 }
 
 void window_manager::update_(){
     glfwPollEvents();
     glClear(GL_COLOR_BUFFER_BIT);
-    script_manager_->update();
+    scene_manager->update();
     glfwSwapBuffers(window_);
 }
 

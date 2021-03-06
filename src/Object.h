@@ -4,9 +4,14 @@
 #include "../include/glm/vec3.hpp"
 #include "./components/component.h"
 #include <vector>
+#include <string>
 
+class transform;
 class object {
 public:
+    std::string label;
+    transform *transform;
+
     object();
     ~object();
     void update();

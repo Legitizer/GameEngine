@@ -10,8 +10,9 @@ void object::update(){
 }
 
 object::object(){
-    component *t = new transform();
-    add_component(t);
+    label = "object";
+    transform = new class transform();
+    add_component((component*)transform);
 }
 
 object::~object(){

@@ -48,8 +48,10 @@ void mesh::draw(){
         return;
     }
     shaderToUse->use();
-    glm::mat4 model = ((parent->get_component<transform>())->model);
+
+    glm::mat4 model = (parent->transform->model);
     shaderToUse->set_mat4_uniform("model", model);
+    
     glBindVertexArray(vao_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
     glDrawElements(GL_TRIANGLES, sizeof_elements_, GL_UNSIGNED_INT, NULL);

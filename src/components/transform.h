@@ -8,10 +8,10 @@
 class transform : public component {
 public:
     glm::mat4 model;
-    glm::vec3 *position, *rotation, *scale;
+    glm::vec3 position, rotation, scale;
 
-    transform() : transform(new glm::vec3(), new glm::vec3(), new glm::vec3()){};
-    transform(glm::vec3 *position, glm::vec3 *rotation, glm::vec3 *scale);
+    transform() : transform(glm::vec3(), glm::vec3(), glm::vec3()){};
+    transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale);
     ~transform();
 
     void apply_transformations();

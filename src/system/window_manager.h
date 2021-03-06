@@ -3,7 +3,7 @@
 
 #include "../../include/GL/glew.h"
 #include "../../include/GLFW/glfw3.h"
-#include "../script_manager.h"
+#include "../scene_manager.h"
 #include <thread>
 
 class window_manager {
@@ -12,7 +12,7 @@ private:
     int initialized_;
     GLFWwindow *window_;
     std::thread *window_thread_;
-    script_manager *script_manager_;
+    scene_manager *scene_manager;
 
     // Window properties
     int width_, height_;
