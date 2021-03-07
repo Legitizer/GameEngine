@@ -13,6 +13,7 @@ public:
     camera(float fov, float ratio, float nearP, float farP);
 
     void set_perspective(float fov, float ratio, float nearP, float farP);
+    void on_update();
 };
 
 #endif

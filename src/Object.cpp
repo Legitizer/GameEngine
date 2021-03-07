@@ -1,5 +1,6 @@
 #include "object.h"
 #include "./components/mesh.h"
+#include "./components/camera.h"
 #include "./components/transform.h"
 #include <iostream>
 
@@ -9,8 +10,8 @@ void object::update(){
     }
 }
 
-object::object(){
-    label = "object";
+object::object(std::string label){
+    this->label = label;
     transform = new class transform();
     add_component((component*)transform);
 }

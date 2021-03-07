@@ -2,7 +2,7 @@
 
 
 int main(){
-    window_manager wm(800, 600, "Engine");
+    window_manager wm(1920, 1080, "Engine");
     wm.wait_until_closed();
     return 0;
 }

@@ -22,11 +22,17 @@ private:
     int initialize_glfw_();
     int create_window_();
     void update_();
-
+    static void key_call_back(GLFWwindow* window, int key, int scancode, int action, int mods);
+    static void mouse_call_back();
 
 public:
     window_manager(int width, int height, const char* title);
     ~window_manager();
+
+    static int *keyStates;
+
+    static double prev_mouse_pos_x, mouse_pos_x, mouse_delta_x;
+    static double prev_mouse_pos_y, mouse_pos_y, mouse_delta_y;
 
     int get_width();
     int get_height();

@@ -14,7 +14,8 @@ public:
     transform *transform;
     scene *scene;
 
-    object();
+    object() : object("object"){};
+    object(std::string label);
     ~object();
     void update();
 

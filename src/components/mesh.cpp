@@ -54,6 +54,10 @@ void mesh::draw(){
     glm::mat4 model = (object->transform->model);
     shaderToUse->set_mat4_uniform("model", model);
 
+    glm::mat4 view = (object->scene->mainCamera->view);
+    shaderToUse->set_mat4_uniform("view", view);
+    //std::cout << glm::to_string(model) << std::endl;
+
     glm::mat4 perspective = (object->scene->mainCamera->perspective);
     shaderToUse->set_mat4_uniform("perspective", perspective);
     

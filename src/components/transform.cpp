@@ -16,6 +16,14 @@ void transform::apply_transformations(){
     model = glm::rotate(model, this->rotation.x, glm::vec3(1, 0, 0));
     model = glm::rotate(model, this->rotation.y, glm::vec3(0, 1, 0));
     model = glm::rotate(model, this->rotation.z, glm::vec3(0, 0, 1));
+
+    forward = -glm::normalize(glm::vec3(model[2]));
+    right = -glm::normalize(glm::vec3(model[0]));
+    up = -glm::normalize(glm::vec3(model[1]));
+}
+
+void transform::on_update(){
+    apply_transformations();
 }
 
 transform::~transform(){
