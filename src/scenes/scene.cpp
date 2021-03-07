@@ -1,7 +1,11 @@
 #include "scene.h"
+#include "../system/window_manager.h"
+#include "../object.h"
+#include "../components/camera.h"
 #include <iostream>
 
-scene::scene() {
+scene::scene(window_manager *windowManager) {
+    this->windowManager = windowManager;
     start();
 };
 
@@ -12,7 +16,10 @@ scene::~scene() {
 };
 
 void scene::start() {
-    
+    object *cameraObj = new object();
+    mainCamera = new camera(80.f, windowManager->get_width()/windowManager->get_height(), 0.01f, 1000.f);
+    cameraObj->add_component(mainCamera);
+    this->add_object(cameraObj);
 };
 
 void scene::update() {
@@ -23,6 +30,7 @@ void scene::update() {
 
 void scene::add_object(object *obj) {
     assert(obj != NULL);
+    obj->scene = this;
     objects.push_back(obj);
 };
 

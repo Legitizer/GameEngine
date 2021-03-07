@@ -2,12 +2,18 @@
 #define _scene_H
 
 #include "../object.h"
+
 #include <vector>
 #include <string>
 
+class camera;
+class window_manager;
 class scene {
 public:
-    scene();
+    window_manager *windowManager;
+    camera *mainCamera;
+
+    scene(window_manager *windowManager);
     ~scene();
 
     void add_object(object *obj);

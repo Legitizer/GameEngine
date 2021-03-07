@@ -1,4 +1,6 @@
 #include "mesh.h"
+#include "../scenes/scene.h"
+#include "camera.h"
 #include "transform.h"
 #include "../object.h"
 #include "../../include/glm/glm.hpp"
@@ -43,14 +45,17 @@ void mesh::set_shader(shader *shaderToUse) {
 }
 
 void mesh::draw(){
-    if (shaderToUse == NULL) {
-        std::cout << "No shader was given to the mesh" << std::endl;
-        return;
-    }
+    assert(shaderToUse != NULL);
+    assert(object != NULL);
+    assert(object->scene != NULL);
+    
     shaderToUse->use();
 
-    glm::mat4 model = (parent->transform->model);
+    glm::mat4 model = (object->transform->model);
     shaderToUse->set_mat4_uniform("model", model);
+
+    glm::mat4 perspective = (object->scene->mainCamera->perspective);
+    shaderToUse->set_mat4_uniform("perspective", perspective);
     
     glBindVertexArray(vao_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);

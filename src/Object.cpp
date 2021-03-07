@@ -22,7 +22,7 @@ object::~object(){
 }
 
 void object::add_component(component *comp) {
-    comp->parent = this;
+    comp->object = this;
     components.push_back(comp);
 }
 

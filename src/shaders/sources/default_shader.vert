@@ -5,5 +5,5 @@ uniform mat4 model;
 uniform mat4 perspective;
 
 void main(){
-    gl_Position = model * vec4(vPos.x, vPos.y, vPos.z, 1.0);
+    gl_Position = perspective * model * vec4(vPos.x, vPos.y, vPos.z, 1.0);
 }

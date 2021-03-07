@@ -6,7 +6,7 @@ class object;
 class component {
 public:
     virtual void on_update(){};
-    object *parent;
+    object *object;
 private:
 
 };

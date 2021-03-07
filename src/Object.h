@@ -6,11 +6,13 @@
 #include <vector>
 #include <string>
 
+class scene;
 class transform;
 class object {
 public:
     std::string label;
     transform *transform;
+    scene *scene;
 
     object();
     ~object();

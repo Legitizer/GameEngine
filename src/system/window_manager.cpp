@@ -37,7 +37,7 @@ int window_manager::create_window_() {
     glewInit();
 
     glClearColor(0,128/255.0f,128/255.0f, 1.0f);
-    scene_manager = new class scene_manager();
+    scene_manager = new class scene_manager(this);
     scene_manager->start();
     // Update loop until window is closed.
     while (!glfwWindowShouldClose(window_)) {
@@ -80,3 +80,10 @@ int window_manager::initialize_glfw_(){
 
     return 0;
 }
+
+int window_manager::get_width(){
+    return width_;
+};
+int window_manager::get_height(){
+    return height_;
+};

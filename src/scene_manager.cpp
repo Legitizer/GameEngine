@@ -2,6 +2,11 @@
 #include "./components/transform.h"
 #include "../include/glm/gtx/string_cast.hpp"
 
+class window_manager;
+scene_manager::scene_manager(window_manager *windowManager){
+    scene1 = new scene(windowManager);
+};
+
 void scene_manager::start(){
     //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     float *vertices = new float[12]{ 0.5f, 0.5f, 0.f,
@@ -17,13 +22,19 @@ void scene_manager::start(){
     m->set_shader(s);
  
     terrain.add_component((component*) m);
-    //scene1.add_object(&terrain);
+    scene1->add_object(&terrain);
+
+    
 }
 
 void scene_manager::update(){
     terrain.update();
+
+    terrain.transform->position = terrain.transform->position + glm::vec3(0, 0, -0.001f);
+    terrain.transform->rotation = terrain.transform->rotation + glm::vec3(0, -0.005f, 0);
+    terrain.transform->apply_transformations();
 }
 
 scene_manager::~scene_manager(){
-    
+    delete scene1;
 }

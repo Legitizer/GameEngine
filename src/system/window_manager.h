@@ -27,6 +27,10 @@ private:
 public:
     window_manager(int width, int height, const char* title);
     ~window_manager();
+
+    int get_width();
+    int get_height();
+
     void wait_until_closed();
 };
 
