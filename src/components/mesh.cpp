@@ -10,18 +10,14 @@
 #include <vector>
 #include <iostream>
 
-mesh::mesh(float *vertices, int sizeof_vertices_,  unsigned int *faces, int sizeof_faces_, float *normals, int sizeof_normals_){
+mesh::mesh(float *vertices, int sizeof_vertices_, float *normals, int sizeof_normals_){
     this->vertices_ = vertices;
-    this->faces_ = faces;
     this->normals_ = normals;
 
-    std::cout << sizeof_normals_ << std::endl;
-
     this->sizeof_vertices_ = sizeof_vertices_;
-    this->sizeof_faces_ = sizeof_faces_;
     this->sizeof_normals_ = sizeof_normals_;
 
-    if (vertices_ != NULL && faces_ != NULL && normals_ != NULL) {
+    if (vertices_ != NULL && normals_ != NULL) {
         initialize_vertex_arrays_();
     }
 }
@@ -48,12 +44,6 @@ void mesh::initialize_vertex_arrays_(){
                 glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         }
-
-        // Index/Element Array Buffer
-        glGenBuffers(1, &ebo_);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof_faces_ * sizeof(unsigned int) * 3, faces_, GL_STATIC_DRAW);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
@@ -79,9 +69,7 @@ void mesh::draw(){
     shaderToUse->set_mat4_uniform("perspective", perspective);
     
     glBindVertexArray(vao_);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    glDrawElements(GL_TRIANGLES, sizeof_faces_ * 3, GL_UNSIGNED_INT, NULL);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glDrawArrays(GL_TRIANGLES, 0, sizeof_vertices_);
     glBindVertexArray(0);
     
 }
@@ -93,7 +81,6 @@ void mesh::on_update(){
 mesh::~mesh(){
     delete shaderToUse;
     delete vertices_;
-    delete faces_;
 }
 
 mesh* mesh::get_mesh_from_obj(const char* filePath) {
@@ -106,6 +93,7 @@ mesh* mesh::get_mesh_from_obj(const char* filePath) {
     std::ifstream f(filePath);
     //Reading file to string.
     std::string line;
+
     while(std::getline(f, line)) {
         //v
         if (line.size() >= 3 && line.at(0) == 'v' && line.at(1) == ' ') {
@@ -126,6 +114,28 @@ mesh* mesh::get_mesh_from_obj(const char* filePath) {
                 v[i] = p;
             }
             verticesV.push_back(v);
+        }
+
+        //vn
+        if (line.size() >= 4 && line.at(0) == 'v' && line.at(1) == 'n' && line.at(2) == ' ') {
+            short charPointer = 2;
+            float *n = new float[3]{0};
+
+            for (short i = 0; i < 3; i++) {
+                std::string s = "";
+                charPointer += 1;
+                
+                try {
+                    while (line.at(charPointer) != ' ' && line.at(charPointer) != '\n' && line.at(charPointer) != '\0') {
+                        s += line.at(charPointer);
+                        charPointer += 1;
+                    }
+                } catch (std::out_of_range e) {}
+
+                float p = std::stof(s);
+                n[i] = p;
+            }
+            normalsV.push_back(n);
         }
 
         //f
@@ -154,28 +164,6 @@ mesh* mesh::get_mesh_from_obj(const char* filePath) {
                 f[i] = ui - 1;
             }
             facesV.push_back(f);
-        }
-
-        //vn
-        if (line.size() >= 4 && line.at(0) == 'v' && line.at(1) == 'n' && line.at(2) == ' ') {
-            short charPointer = 2;
-            float *n = new float[3]{0};
-
-            for (short i = 0; i < 3; i++) {
-                std::string s = "";
-                charPointer += 1;
-                
-                try {
-                    while (line.at(charPointer) != ' ' && line.at(charPointer) != '\n' && line.at(charPointer) != '\0') {
-                        s += line.at(charPointer);
-                        charPointer += 1;
-                    }
-                } catch (std::out_of_range e) {}
-
-                float p = std::stof(s);
-                n[i] = p;
-            }
-            normalsV.push_back(n);
         }
 
         //ni
@@ -210,15 +198,24 @@ mesh* mesh::get_mesh_from_obj(const char* filePath) {
     f.close();
 
     //Turn vectors into arrays
-    float *vertices = new float[verticesV.size()*3]{0};
-    number_of_vertices = verticesV.size();
-    for (int a = 0; a < verticesV.size(); a++) {
-        for (int i = 0; i < 3; i++) {
-            vertices[a*3 + i] = verticesV[a][i];
-            vertices[a*3 + i] = verticesV[a][i];
-            vertices[a*3 + i] = verticesV[a][i];
-        }
-        delete verticesV[a];
+    float *vertices = new float[facesV.size()*3*3]{0};
+    number_of_vertices = facesV.size()*3;
+    for (int a = 0; a < facesV.size(); a++) {
+        float *v1 = verticesV[facesV[a][0]];
+        float *v2 = verticesV[facesV[a][1]];
+        float *v3 = verticesV[facesV[a][2]];
+
+        vertices[a * 9 + 0] = v1[0];
+        vertices[a * 9 + 1] = v1[1];
+        vertices[a * 9 + 2] = v1[2];
+
+        vertices[a * 9 + 3] = v2[0];
+        vertices[a * 9 + 4] = v2[1];
+        vertices[a * 9 + 5] = v2[2];
+
+        vertices[a * 9 + 6] = v3[0];
+        vertices[a * 9 + 7] = v3[1];
+        vertices[a * 9 + 8] = v3[2];
     }
 
     
@@ -261,6 +258,6 @@ mesh* mesh::get_mesh_from_obj(const char* filePath) {
         delete normalsV[a];
     }
 
-    mesh *m = new mesh(vertices, number_of_vertices, faces, number_of_faces, normals, normalsIndicesV.size()*3);
+    mesh *m = new mesh(vertices, number_of_vertices, normals, normalsIndicesV.size()*3);
     return m;
 };

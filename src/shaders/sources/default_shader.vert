@@ -7,11 +7,11 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 perspective;
 
-out vec3 norm;
+out vec3 worldNorm;
 out vec3 worldPos;
 
 void main(){
-    gl_Position = perspective * view * model * vec4(vPos.x, vPos.y, vPos.z, 1.0);
-    norm = normalize(vNorm);
-    worldPos = (model * vec4(vPos.x, vPos.y, vPos.z, 1.0)).xyz;
+    worldPos = vec3(model * vec4(vPos.x, vPos.y, vPos.z, 1.0));
+    worldNorm = normalize(vec3(model * vec4(vNorm, 0)).xyz);
+    gl_Position = perspective * view * vec4(worldPos, 1.0);
 }

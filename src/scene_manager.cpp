@@ -18,31 +18,38 @@ void scene_manager::start(){
     unsigned int *faces = new unsigned int[6]{   0, 1, 3,
                                                     1, 3, 2 };
 
-    mesh *m = mesh::get_mesh_from_obj("./src/meshes/cube.obj");
-    //mesh *m2 = mesh::get_mesh_from_obj("./src/meshes/sword.obj");
-    //mesh *m3 = mesh::get_mesh_from_obj("./src/meshes/monkey.obj");
+    mesh *m4 = mesh::get_mesh_from_obj("./src/meshes/cubeS.obj");
+    mesh *m = mesh::get_mesh_from_obj("./src/meshes/monkey.obj");
+    mesh *m2 = mesh::get_mesh_from_obj("./src/meshes/sword.obj");
+    mesh *m3 = mesh::get_mesh_from_obj("./src/meshes/cube.obj");
 
     shader *s = new shader("./src/shaders/sources/default_shader.vert", "./src/shaders/sources/default_shader.frag");
     m->set_shader(s);
-    //m2->set_shader(s);
-    //m3->set_shader(s);
+    m2->set_shader(s);
+    m3->set_shader(s);
+    m4->set_shader(s);
  
     object *mo = new object();
     mo->add_component((component*) m);
 
     object *so = new object();
-    //so->add_component((component*) m2);
+    so->add_component((component*) m2);
 
     object *co = new object();
-    //co->add_component((component*) m3);
+    co->add_component((component*) m3);
+
+    object *sco = new object();
+    sco->add_component((component*) m4);
 
     mo->transform->position = glm::vec3(0, 0, -2.f);
     so->transform->position = glm::vec3(2.f, 0, -2.f);
     co->transform->position = glm::vec3(-2.f, 0, -2.f);
+    sco->transform->position = glm::vec3(-4, 0, -2.f);
 
     scene1->add_object(mo);
     scene1->add_object(so);
     scene1->add_object(co);
+    scene1->add_object(sco);
 }
 
 void scene_manager::update(){

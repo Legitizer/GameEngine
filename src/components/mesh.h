@@ -15,14 +15,12 @@ private:
 
     float *vertices_;
     int sizeof_vertices_;
-    unsigned int *faces_;
-    int sizeof_faces_;
     float *normals_;
     int sizeof_normals_;
 
     shader *shaderToUse;
 public:
-    mesh(float *vertices, int sizeof_vertices_,  unsigned int *faces, int sizeof_faces_, float *normals, int sizeof_normals_);
+    mesh(float *vertices, int sizeof_vertices_, float *normals, int sizeof_normals_);
     ~mesh();
 
     void initialize_vertex_arrays_();
