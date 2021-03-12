@@ -17,7 +17,7 @@ scene::~scene() {
 
 void scene::start() {
     object *cameraObj = new object("cameraObj");
-    mainCamera = new camera(80.f, (float)windowManager->get_width()/windowManager->get_height(), 0.01f, 1000.f);
+    mainCamera = new camera(glm::radians(80.f), (float)windowManager->get_width()/windowManager->get_height(), 0.01f, 1000.f);
     cameraObj->add_component(mainCamera);
     this->add_object(cameraObj);
 };

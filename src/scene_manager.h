@@ -7,7 +7,6 @@
 
 class scene_manager{
 private:
-    object terrain;
     scene *scene1;
 public:
     void start();

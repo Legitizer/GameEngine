@@ -21,7 +21,6 @@ double window_manager::mouse_pos_y = 0;
 double window_manager::prev_mouse_pos_x = 0;
 double window_manager::prev_mouse_pos_y = 0;
 void window_manager::mouse_call_back(){
-    std::cout << mouse_delta_x << std::endl;
     mouse_delta_x = prev_mouse_pos_x - mouse_pos_x;
     mouse_delta_y = prev_mouse_pos_y - mouse_pos_y;
     prev_mouse_pos_x = mouse_pos_x;
@@ -57,6 +56,8 @@ int window_manager::create_window_() {
     glfwSetInputMode(window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glewInit();
     glViewport(0, 0, width_, height_);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 
     glClearColor(0,128/255.0f,128/255.0f, 1.0f);
     scene_manager = new class scene_manager(this);
@@ -72,7 +73,7 @@ int window_manager::create_window_() {
 
 void window_manager::update_(){
     glfwPollEvents();
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glfwGetCursorPos(window_, &mouse_pos_x, &mouse_pos_y);
     mouse_call_back();

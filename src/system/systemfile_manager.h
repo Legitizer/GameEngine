@@ -8,6 +8,7 @@
 class systemfile_manager {
 public:
     static char* read_file(const char* file_path);
+    static std::string* read_file_as_string(const char* file_path);
 private:
 };
 
