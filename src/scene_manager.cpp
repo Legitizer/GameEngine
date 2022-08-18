@@ -10,6 +10,8 @@ scene_manager::scene_manager(window_manager *windowManager){
     scene1 = new scene(windowManager);
 };
 
+object *mo;
+
 void scene_manager::start(){
     float *vertices = new float[12]{ 0.5f, 0.5f, 0.f,
                                     -0.5f, 0.5f, 0.f,
@@ -18,18 +20,18 @@ void scene_manager::start(){
     unsigned int *faces = new unsigned int[6]{   0, 1, 3,
                                                     1, 3, 2 };
 
-    mesh *m4 = mesh::get_mesh_from_obj("./src/meshes/cubeS.obj");
-    mesh *m = mesh::get_mesh_from_obj("./src/meshes/monkey.obj");
+    //mesh *m4 = mesh::get_mesh_from_obj("./src/meshes/cubeS.obj");
+    mesh *m = mesh::get_mesh_from_obj("./src/meshes/cube.obj");
     mesh *m2 = mesh::get_mesh_from_obj("./src/meshes/sword.obj");
-    mesh *m3 = mesh::get_mesh_from_obj("./src/meshes/cube.obj");
+    mesh *m3 = mesh::get_mesh_from_obj("./src/meshes/monkeyS.obj");
 
     shader *s = new shader("./src/shaders/sources/default_shader.vert", "./src/shaders/sources/default_shader.frag");
     m->set_shader(s);
     m2->set_shader(s);
     m3->set_shader(s);
-    m4->set_shader(s);
+    //m4->set_shader(s);
  
-    object *mo = new object();
+    mo = new object();
     mo->add_component((component*) m);
 
     object *so = new object();
@@ -39,7 +41,7 @@ void scene_manager::start(){
     co->add_component((component*) m3);
 
     object *sco = new object();
-    sco->add_component((component*) m4);
+    //sco->add_component((component*) m4);
 
     mo->transform->position = glm::vec3(0, 0, -2.f);
     so->transform->position = glm::vec3(2.f, 0, -2.f);
@@ -83,6 +85,8 @@ void scene_manager::update(){
     }else if (input::get_key_down(GLFW_KEY_N)) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
+
+    mo->transform->rotation = mo->transform->rotation + glm::vec3(0, 0.003f, 0.001f);
 
 }
 
